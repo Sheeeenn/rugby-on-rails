@@ -1,14 +1,18 @@
-require 'webrick'
+require 'sinatra/base'
+require 'slim'
+require 'sass'
 
-server = WEBrick::HTTPServer.new(
-  Port: 3000,
-  DocumentRoot: Dir.pwd
-)
+class RugbyApp < Sinatra::Base
+  # Configuration
+  set :public_folder, File.join(File.dirname(__FILE__), 'public')
+  set :views, File.join(File.dirname(__FILE__), 'views')
 
-server.mount_proc '/' do |req, res|
-  res.body = "1Welcome to Rugby on Rails (plain Ruby web server)"
+  # Routes
+  get '/' do
+    @tags = ["Rugby", "Sports", "League", "Union", "World Cup", "Six Nations", "Super Rugby", "Premiership"]
+    slim :index
+  end
+
+  # Start the server if this file is executed directly
+  run! if __FILE__ == $0
 end
-
-trap('INT') { server.shutdown }
-
-server.start

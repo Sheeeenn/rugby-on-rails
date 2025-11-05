@@ -1,0 +1,39 @@
+#app
+  header
+    h1 Rugby on Rails
+  
+  .search-container
+    .search-bar
+      .selected-tags v-if="selectedTags.length > 0"
+        .selected-tag v-for="(tag, index) in selectedTags" :key="index"
+          | {{ tag }}
+          button @click="removeTag(index)" &times;
+      
+      input type="text" placeholder="Search..." v-model="searchQuery" @keyup.enter="performSearch"
+      button @click="performSearch" class="search-button"
+        i.fas.fa-search
+  
+  .tags-container
+    .tags-track.track-1
+      .tags-slide
+        - @tags.each do |tag|
+          .tag @click="toggleTag('#{tag}')" :class="{ active: isTagSelected('#{tag}') }" = tag
+      .tags-slide
+        - @tags.each do |tag|
+          .tag @click="toggleTag('#{tag}')" :class="{ active: isTagSelected('#{tag}') }" = tag
+    
+    .tags-track.track-2
+      .tags-slide
+        - @tags.reverse.each do |tag|
+          .tag @click="toggleTag('#{tag}')" :class="{ active: isTagSelected('#{tag}') }" = tag
+      .tags-slide
+        - @tags.reverse.each do |tag|
+          .tag @click="toggleTag('#{tag}')" :class="{ active: isTagSelected('#{tag}') }" = tag
+    
+    .tags-track.track-3
+      .tags-slide
+        - @tags.shuffle.each do |tag|
+          .tag @click="toggleTag('#{tag}')" :class="{ active: isTagSelected('#{tag}') }" = tag
+      .tags-slide
+        - @tags.shuffle.each do |tag|
+          .tag @click="toggleTag('#{tag}')" :class="{ active: isTagSelected('#{tag}') }" = tag

@@ -14,3 +14,8 @@ gem 'tilt', '~> 2.0'
 
 # Database
 gem 'sqlite3', '~> 1.4'
+
+
+gem 'dotenv'
+
+gem "webrick", "~> 1.9"
